@@ -1,0 +1,34 @@
+body {
+  margin: 0;
+  padding: 0;
+  font-family: sans-serif;
+}
+.wrapper {
+  width: 80%;
+  margin: 30px auto;
+}
+.search {
+  margin: 0px 0px 15px 0px;
+}
+.search-label {
+  display: inline-block;
+  margin: 0px 20px 0px 0px;
+}
+.search-input {
+  margin: 0px 0px 0px 10px;
+}
+.movies-container {
+  display: flex;
+  flex-direction: column;
+}
+.movie {
+  width: 50%;
+  margin: 20px 0px 0px 0px;
+}
+.back-button {
+  display: inline-block;
+  margin: 10px 0px 20px 0px;
+}
+.back-button:hover {
+  cursor: pointer;
+}
