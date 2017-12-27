@@ -1,10 +1,11 @@
 1. clone or download this folder
 2. npm install
 3. npm start
-4. In search field type your query, which youtube movie do you want to find.
-5. Movies top-10 list will appear accordingly your query.
-6. Click on chosen movie, it starts to play in new window.
-7. Click "Back to Search" to move back to movies list.
+4. In your browser: http://localhost:3000/
+5. In search field type your query, which youtube movie do you want to find.
+6. Movies top-10 list will appear accordingly your query.
+7. Click on chosen movie, it starts to play in new window.
+8. Click "Back to Search" to move back to movies list.
 
 
 
