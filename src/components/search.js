@@ -1,46 +1,66 @@
 import React, { Component } from 'react';
 import { connect } from 'react-redux';
-import { setMovie, getVideosFromYouTube } from '../actions/movies.js';
-import MoviesList from './movies-list.js';
-
-const actions = {
-  getVideosFromYouTube,
-};
+import _ from 'lodash';
+import { getDataFromGitHub as _getDataFromGitHub } from '../actions/github-actions.js';
 
 class Search extends Component {
-	constructor(props) {
-	  super(props);
-	  this.state = {value: ''};
 
-	  this.handleChange = this.handleChange.bind(this);
-	  this.handleSubmit = this.handleSubmit.bind(this);
-	}
+  state = {
+    search: '',
+    inputErr: ''
+  }
 
-	handleChange(event) {
-	  this.setState({value: event.target.value});
-	}
+  setInputData = (event) => {
+    if (event.target.name === 'search') {
+      (event.target.value === '') ? this.setState({ inputErr: 'Input shouldn`t be emty' }) : this.setState({ inputErr: '' });
+      this.setState({ search: event.target.value });
+    }
+  }
 
-	handleSubmit(event) {
-		this.props.getVideosFromYouTube(this.state.value);
-	  event.preventDefault();
-	}
+  getDataFromGitHub = () => {
+    const user = this.state.search.replace(/\s+/g,"");
+    if (!this.state.search || !user) return;
+    this.props._getDataFromGitHub(this.state.search);
+  }
+
+  renderGithubData = () => {
+    const data = [];
+    for (let key in this.props.githubData) {
+      data.push(<div key={key} className='item'>{`${key}: ${this.props.githubData[key]}`}</div>)
+    }
+    return data;
+  }
 
   render() {
     return (
       <div className='wrapper'>
         <div className="search">
-          <form onSubmit={this.handleSubmit}>
-            <label>
-              <div className='search-label'>Search on YouTube</div>
-              <input type="text" value={this.state.value} onChange={this.handleChange} />
-            </label>
-            <input className='search-input' type="submit" value="Submit" />
-          </form>
+          <input type="text" name="search" value={this.state.search} placeholder='Search...'
+            maxLength='30'
+            onChange={this.setInputData} />
+            <button onClick={this.getDataFromGitHub}>{'Search'}</button>
+            {
+              (this.state.inputErr) ? <div className='input-error'>{this.state.inputErr}</div> : null
+            }
         </div>
-        <MoviesList />
+        <div><hr /></div>
+        <div>
+          {
+            (_.isEmpty(this.props.githubData)) ? <div>{'Keep searching...'}</div> :
+            <div>{this.renderGithubData()}</div>
+          }
+        </div>
       </div>
     );
   }
 }
 
-export default connect(null, actions)(Search);
+const mapStateToProps = ({ githubData }) => ({
+  githubData
+});
+
+const actions = {
+  _getDataFromGitHub
+};
+
+export default connect(mapStateToProps, actions)(Search);

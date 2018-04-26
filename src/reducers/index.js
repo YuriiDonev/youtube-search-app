@@ -1,8 +1,8 @@
 import { combineReducers } from 'redux';
 import { routerReducer } from 'react-router-redux';
-import movies from './movie-reducer.js';
+import githubData from './github-reducer.js';
 
 export default combineReducers({
-  movies,
+  githubData,
   routing: routerReducer
 });

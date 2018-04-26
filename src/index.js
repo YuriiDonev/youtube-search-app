@@ -12,7 +12,6 @@ import './index.css';
 
 import reducers from './reducers';
 import Search from './components/search.js';
-import SingleMovie from './components/single-movie.js';
 
 const store = createStore(reducers, composeWithDevTools(applyMiddleware(thunk)));
 const history = syncHistoryWithStore(browserHistory, store);
@@ -21,7 +20,6 @@ ReactDOM.render(
 	<Provider store={store}>
 		<Router history={history}>
 			<Route path="/" component={Search} />
-      <Route path="/movie/:movieID" component={SingleMovie} />
 		</Router>
 	</Provider>,
 	document.getElementById('root')
